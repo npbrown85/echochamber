@@ -1,10 +1,41 @@
-<html>
-    <head>
-        <meta charset="utf-8">
-        <title>Echo</title>
-    </head>
-    <body>
-        <p>Echo Echo Echo
-    </body>
+{% extends 'news/base.html' %}
 
-</html>
+{% block content %}
+
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+    <div class="container">
+        <h1>Das Echo Chamber</h1>
+        <p>Have a look around to see some of the latest and greatest news articles from your favorite feeds.</p>
+    </div>
+</div>
+{% regroup articles by story as story_list %}
+
+<div class="container" style="padding: 0px;">
+    {% for story in story_list %}
+    <div class="col-md-12" style="background-color: #D3D3D3;
+                                  padding-top: 0px;
+                                  padding-bottom: 10px;
+                                  margin-top: 0px;
+                                  margin-bottom: 10px;
+                                  border-radius: 25px;">
+        <div class="story_line" style="padding-top: 0px;
+                                       margin-top: 5px;"><h3>{{ story.grouper }}</h3></div>
+        <div class="container" >
+            {% for article in story.list %}
+        <div class="col-md-4">
+            <a style="word-wrap: break-word;" href="{{ article.url }}"><h4>{{ article.title }}</h4></a>
+            <p>{{article.description}}</p>
+        </div>
+            {% endfor %}
+        </div>
+    </div>
+        {% endfor %}
+    
+</div>
+<footer>
+<p>&copy; The Echo Chamber</p>
+</footer>
+
+
+{% endblock %}
